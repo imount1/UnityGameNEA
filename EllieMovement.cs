@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 
-public class EllieMovement : NPCFollow
+public class EllieMovement : NPCFollow //Inherits all methods and classes in the NPCFollow script. Used by multiple NPCs
 {
     public CircularQueue path;
 
