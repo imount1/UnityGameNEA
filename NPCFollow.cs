@@ -11,6 +11,7 @@ public class NPCFollow : MonoBehaviour
     public float speed;
     public float enqRate;
     public string leader;
+    //used to determine when values can be enqueued (only while the leader is moving)
     public bool isLeaderMoving;
     public Rigidbody2D leaderRB;
     public GameObject follower;
@@ -19,6 +20,7 @@ public class NPCFollow : MonoBehaviour
 
     public class CircularQueue
     {
+        //pointers for the circular queue
         private Vector2[] positions;
         private int front;
         private int rear;
@@ -77,7 +79,7 @@ public class NPCFollow : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GameObject 'leader' not found. Make sure it exists in the scene.");
+            Debug.LogError("GameObject 'leader' not found.");
         }
     }
     public void MoveToDequeuedPosition(Vector2 dequeuedItem)
@@ -119,16 +121,15 @@ public class NPCFollow : MonoBehaviour
         float followerY = transform.position.y;
         float leaderY = leaderFront.transform.position.y;
 
+        Renderer frenderer = GetComponent<Renderer>();
+        Renderer lrenderer = leaderFront.GetComponent<Renderer>();
+
         if (followerY < leaderY)
         {
-            Renderer frenderer = GetComponent<Renderer>();
-            Renderer lrenderer = leaderFront.GetComponent<Renderer>();
             frenderer.sortingOrder = lrenderer.sortingOrder + 1;
         }
         else
         {
-            Renderer renderer = GetComponent<Renderer>();
-            Renderer lrenderer = leaderFront.GetComponent<Renderer>();
             renderer.sortingOrder = lrenderer.sortingOrder - 1;
         }
     }
